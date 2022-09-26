@@ -13,14 +13,6 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  MultiProvider(
-    providers: [
-      ChangeNotifierProvider<UserController>(
-          create: (context) => UserController()
-      ),
-    ],
-  );
-
   runApp(const MyApp());
 }
 

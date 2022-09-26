@@ -31,10 +31,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 LoginScreen();
                 break;
               case Status.Unauthenticated:
-                SignupScreen();
                 break;
               case Status.Registering:
-                SignupScreen();
                 break;
             }
             return LoginScreen();

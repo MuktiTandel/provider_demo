@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<UserController>(context);
     return Scaffold(
       body: Padding(
           padding: const EdgeInsets.all(20),
@@ -80,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if(formKey.currentState!.validate()){
                   FocusScope.of(context).unfocus();
 
-                  bool status = await  authProvider.loginWithEmailPassword(
+                  bool status = await  UserController().loginWithEmailPassword(
                       emailController.text, passwordController.text);
 
                   if(!status){

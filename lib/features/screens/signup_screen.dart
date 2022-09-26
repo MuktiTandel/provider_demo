@@ -32,9 +32,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final authProvider = Provider.of<UserController>(context);
-
-    return ChangeNotifierProvider(
+    return Provider(
       create: (context) => UserController(),
       child: Scaffold(
         body: Padding(
@@ -102,13 +100,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           if(formKey.currentState!.validate()){
                             FocusScope.of(context).unfocus();
 
-                            UserModel usermodel = await authProvider.registerWithEmailPassword(
+                            UserModel usermodel = await UserController().registerWithEmailPassword(
                                 emailController.text, passwordController.text);
 
                             if(usermodel == null){
                               utils.CustomSnackBar('Somthing Went Wrong', context);
                             }else{
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+                              Navigator.of(context).pop();
                             }
                           }
                         },
