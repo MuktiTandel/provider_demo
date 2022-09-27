@@ -10,8 +10,9 @@ class CustomTextformfield extends StatelessWidget {
     this.hinttext,
     this.errortext,
     required this.controller,
-    this.validator
-  }) : super(key: key);
+    required Function(String val) validator,
+    this.isObscure = false
+  }) : _validator = validator, super(key: key);
 
   final double? border_radius;
   final IconData? prefixicon;
@@ -19,12 +20,15 @@ class CustomTextformfield extends StatelessWidget {
   final Widget? suffixWidget;
   final String? hinttext;
   final String? errortext;
-  final Function(String val)? validator;
+  final Function(String val) _validator;
   final TextEditingController controller;
+  final bool? isObscure;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      obscureText: isObscure ?? false,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(border_radius ?? 10)
@@ -34,9 +38,7 @@ class CustomTextformfield extends StatelessWidget {
         hintText: hinttext,
         errorText: errortext
       ),
-      validator: (val){
-        validator!(val!);
-      },
+      validator: (val) => _validator(val!)
     );
   }
 }

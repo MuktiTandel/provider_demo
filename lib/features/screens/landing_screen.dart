@@ -16,28 +16,16 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => UserController(),
-      child: Consumer(
-          builder: (context, UserController controller, _) {
-            switch (controller.status) {
-              case Status.Uninitialized:
-              // TODO: Handle this case.
-                break;
-              case Status.Authenticated:
-                HomeScreen();
-                break;
-              case Status.Authenticating:
-                LoginScreen();
-                break;
-              case Status.Unauthenticated:
-                break;
-              case Status.Registering:
-                break;
-            }
+    return StreamBuilder<UserModel>(
+        stream: UserController().user,
+        builder: (context, AsyncSnapshot<UserModel> snapshot){
+          final UserModel? user = snapshot.data;
+          print("***** user data = ${user?.email} ******");
+          if(user != null){
             return LoginScreen();
           }
-      )
+          return HomeScreen();
+        }
     );
   }
 }

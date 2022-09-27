@@ -13,6 +13,12 @@ void main() async {
 
   await Firebase.initializeApp();
 
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => UserController())
+    ],
+  );
+
   runApp(const MyApp());
 }
 
@@ -28,12 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: Routes.routes,
-        home: MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => UserController())
-            ],
-          child: LandingScreen(),
-        )
+        home: LandingScreen()
     );
   }
 }
